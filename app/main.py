@@ -23,3 +23,11 @@ def multiply(c:int, d:int):
 @app.get("/square/{e}")
 def square(e:int):
     return {"square": e * e}
+
+@app.get("/factorial/{f}")
+def factorial(f:int):
+  i = f - 1
+  while i > 1:
+    f = f * i
+    i -= 1
+  return {"factorial": f}
