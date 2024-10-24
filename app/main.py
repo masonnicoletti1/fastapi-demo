@@ -19,3 +19,7 @@ def add(a: int, b: int):
 @app.get("/multiply/{c}/{d}")
 def multiply(c:int, d:int):
     return {"multiply": c * d}
+
+@app.get("/square/{e}")
+def square(e:int):
+    return {"square": e * e}
