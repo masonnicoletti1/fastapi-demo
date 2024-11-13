@@ -3,6 +3,7 @@
 from fastapi import FastAPI
 from typing import Optional
 from pydantic import BaseModel
+import mysql.connector
 import json
 import os
 
