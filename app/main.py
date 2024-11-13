@@ -32,3 +32,13 @@ def factorial(f:int):
     f = f * i
     i -= 1
   return {"factorial": f}
+
+
+# dp1-diy-spotify
+DBHOST = "ds2022.cqee4iwdcaph.us-east-1.rds.amazonaws.com"
+DBUSER = "admin"
+DBPASS = os.getenv('DBPASS')
+DB = "cxx6sw"
+
+db = mysql.connector.connect(user=DBUSER, host=DBHOST, password=DBPASS, database=DB)
+cur = db.cursor()
