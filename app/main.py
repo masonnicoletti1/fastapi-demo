@@ -3,6 +3,7 @@
 from fastapi import FastAPI
 from typing import Optional
 from pydantic import BaseModel
+from fastapi.middleware.cors import CORSMiddleware
 import mysql.connector
 import json
 import os
@@ -42,6 +43,15 @@ DB = "cxx6sw"
 
 db = mysql.connector.connect(user=DBUSER, host=DBHOST, password=DBPASS, database=DB)
 cur = db.cursor()
+
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["*"],  # Or specify allowed origins
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
+
 
 @app.route('/genres', methods=['GET'], cors=True)
 def get_genres():
