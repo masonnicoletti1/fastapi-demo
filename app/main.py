@@ -5,6 +5,7 @@ from typing import Optional
 from pydantic import BaseModel
 from fastapi.middleware.cors import CORSMiddleware
 import mysql.connector
+from mysql.connector import Error
 import json
 import os
 
@@ -46,14 +47,12 @@ cur = db.cursor()
 
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["*"],  # Or specify allowed origins
-    allow_credentials=True,
+    allow_origins=["*"],
     allow_methods=["*"],
     allow_headers=["*"],
 )
 
-
-@app.route('/genres', methods=['GET'], cors=True)
+@app.get('/genres')
 def get_genres():
     query = "SELECT * FROM genres ORDER BY genreid;"
     try:    
@@ -63,14 +62,11 @@ def get_genres():
         json_data=[]
         for result in results:
             json_data.append(dict(zip(headers,result)))
-        output = json.dumps(json_data)
-        return(output)
-    except mysql.connector.Error as e:
-        print("MySQL Error: ", str(e))
-        return None
-    cur.close()
+        return(json_data)
+    except Error as e:
+        return {"Error": "MySQL Error: " + str(e)}
 
-@app.route('/songs', methods=['GET'], cors=True)
+@app.get('/songs')
 def get_songs():
     query = "SELECT songs.title, songs.album, songs.artist, songs.year, songs.file, songs.image, genres.genre FROM songs JOIN genres ON songs.genre=genres.genreid ORDER BY songs.id;"
     try:    
@@ -80,9 +76,6 @@ def get_songs():
         json_data=[]
         for result in results:
             json_data.append(dict(zip(headers,result)))
-        output = json.dumps(json_data)
-        return(output)
-    except mysql.connector.Error as e:
-        print("MySQL Error: ", str(e))
-        return None
-    cur.close()
+        return(json_data)
+    except Error as e:
+        return {"Error": "MySQL Error: " + str(e)}
