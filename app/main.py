@@ -42,17 +42,8 @@ DBUSER = "admin"
 DBPASS = os.getenv('DBPASS')
 DB = "cxx6sw"
 
-db = mysql.connector.connect(
-    user=DBUSER,
-    password=DBPASS,
-    host=DBHOST,
-    database=DB,
-    ssl_ca="path/to/ca-cert.pem",
-    ssl_verify_cert=True,
-    ssl_disabled=False,
-    option_files="/path/to/my.cnf",
-)
-cur = db.cursor()
+db = mysql.connector.connect(user=DBUSER, host=DBHOST, password=DBPASS, database=DB)
+cur=db.cursor()
 
 app.add_middleware(
     CORSMiddleware,
