@@ -42,7 +42,16 @@ DBUSER = "admin"
 DBPASS = os.getenv('DBPASS')
 DB = "cxx6sw"
 
-db = mysql.connector.connect(user=DBUSER, host=DBHOST, password=DBPASS, database=DB)
+db = mysql.connector.connect(
+    user="admin",
+    password="your_password",
+    host="ds2022.cqee4iwdcaph.us-east-1.rds.amazonaws.com",
+    database="your_database",
+    ssl_ca="path/to/ca-cert.pem",
+    ssl_verify_cert=True,
+    ssl_disabled=False,
+    option_files="/path/to/my.cnf",
+)
 cur = db.cursor()
 
 app.add_middleware(
